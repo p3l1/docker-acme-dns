@@ -4,7 +4,8 @@ before_script:
 build_image:
   stage: build
   script:
-    - docker compose -f docker-compose.yml config
+    - envsubst < data/acme-dns/config/template.cfg  > data/acme-dns/config/config.cfg
+    - docker-compose -f docker-compose.yml config
     - docker build -t acme-dns .
 
 deploy_production:
