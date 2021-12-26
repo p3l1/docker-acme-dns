@@ -12,3 +12,4 @@ services:
     volumes:
       - ./config/config.cfg:/etc/acme-dns/config.cfg:ro
       - ./api-certs/:/root/api-certs
+      - ./datanase/acme-dns.db:/var/lib/acme-dns/acme-dns.db
