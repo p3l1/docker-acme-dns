@@ -18,8 +18,10 @@ services:
     hostname: database
     image: postgres:alpine
     restart: always
+    user: gitlab-runner
     volumes:
       - ./data/postgresql/data:/var/lib/postgresql/data
+      - /etc/passwd:/etc/passwd:ro
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
