@@ -10,6 +10,6 @@ services:
       - "217.160.41.191:53:53/udp"
       - "10.8.0.1:80:80"
     volumes:
-      - ./config/config.cfg:/etc/acme-dns/config.cfg:ro
+      - ./config:/etc/acme-dns:ro
       - ./api-certs/:/root/api-certs
-      - ./datanase/acme-dns.db:/var/lib/acme-dns/acme-dns.db
+      - ./database:/var/lib/acme-dns
