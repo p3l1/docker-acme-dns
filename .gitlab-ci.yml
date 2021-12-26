@@ -9,7 +9,7 @@ build_image:
 deploy_production:
   stage: deploy
   script:
-    - echo "Deploy to production server"
+    - docker-compose up -d --build --remove-orphans
   environment:
     name: production
     url: https://dns.herzo.gs
