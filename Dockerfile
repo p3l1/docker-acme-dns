@@ -11,10 +11,7 @@ RUN CGO_ENABLED=1 go build
 FROM alpine:latest
 WORKDIR /var/lib/acme-dns/
 
-RUN mkdir -p /etc/acme-dns && \
-    mkdir -p /var/lib/acme-dns && \
-    rm -rf ./config.cfg && \
-    apk --no-cache add \
+RUN apk --no-cache add \
         ca-certificates \
         bind-tools \
         libcap && \
@@ -36,6 +33,10 @@ RUN addgroup --system --gid 1994 acme && \
             acme
 
 USER 1994
+
+RUN mkdir -p /etc/acme-dns && \
+    mkdir -p /var/lib/acme-dns && \
+    rm -rf ./config.cfg
 
 VOLUME ["/etc/acme-dns", "/var/lib/acme-dns"]
 ENTRYPOINT ["/usr/local/bin/acme-dns"]
