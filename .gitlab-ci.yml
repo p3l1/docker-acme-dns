@@ -13,7 +13,7 @@ deploy_production:
     - docker-compose rm acme-dns
     - cp .env.example .acme.env
     - source .acme.env
-    - envsubst < config/template.cfg  > config/config.cfg
+    - envsubst < config/template.cfg  > data/config.cfg
     - docker-compose up -d --build --remove-orphans
   environment:
     name: production

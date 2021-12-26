@@ -10,6 +10,5 @@ services:
       - "217.160.41.191:53:53/udp"
       - "10.8.0.1:80:80"
     volumes:
-      - ./config:/etc/acme-dns:ro
       - ./data:/var/lib/acme-dns
 

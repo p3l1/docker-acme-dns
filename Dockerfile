@@ -34,11 +34,10 @@ RUN addgroup --system --gid 1994 acme && \
 
 USER 1994
 
-RUN mkdir -p /etc/acme-dns && \
-    mkdir -p /var/lib/acme-dns && \
+RUN mkdir -p /var/lib/acme-dns && \
     rm -rf ./config.cfg
 
-VOLUME ["/etc/acme-dns", "/var/lib/acme-dns"]
+VOLUME ["/var/lib/acme-dns"]
 ENTRYPOINT ["/usr/local/bin/acme-dns"]
 EXPOSE 53 80 443
 EXPOSE 53/udp
