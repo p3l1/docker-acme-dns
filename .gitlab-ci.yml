@@ -14,10 +14,10 @@ build_image:
 deploy_production:
   stage: deploy
   script:
+    - envsubst < data/acme-dns/config/template.cfg  > data/acme-dns/config/config.cfg
     - docker-compose down
     - docker-compose rm acme-dns
-    - envsubst < data/acme-dns/config/template.cfg  > data/acme-dns/config/config.cfg
-    - docker-compose up -d --build --remove-orphans --no-cache
+    - docker-compose up -d --build --remove-orphans
   environment:
     name: production
     url: https://dns.herzo.gs

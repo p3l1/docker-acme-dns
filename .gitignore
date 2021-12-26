@@ -1,4 +1,3 @@
-config.cfg
 .env
 .env.development
 api-certs/
