@@ -15,9 +15,10 @@ RUN mkdir -p /etc/acme-dns && \
     mkdir -p /var/lib/acme-dns && \
     rm -rf ./config.cfg && \
     apk --no-cache add \
-        ca-certificates && \
+        ca-certificates \
+        libcap && \
         update-ca-certificates && \
-        libcap
+        rm -rf /var/cache/apk/*
 
 COPY --from=builder /tmp/acme-dns/acme-dns /usr/local/bin/acme-dns
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/acme-dns && \
