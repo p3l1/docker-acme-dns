@@ -9,15 +9,28 @@ WORKDIR /tmp/acme-dns
 RUN CGO_ENABLED=1 go build
 
 FROM alpine:latest
+WORKDIR /var/lib/acme-dns/
 
-WORKDIR /root/
-COPY --from=builder /tmp/acme-dns/acme-dns ./
+RUN adduser --system \
+            --gecos "acme-dns service" \
+            --disabled-password \
+            --uid 1994 \
+            --group \
+            --shell /sbin/nologin \
+            --home /var/lib/acme-dns/ \
+            acme
+
+COPY --from=builder /tmp/acme-dns/acme-dns /usr/local/bin/acme-dns
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/acme-dns
+
 RUN mkdir -p /etc/acme-dns && \
     mkdir -p /var/lib/acme-dns && \
     rm -rf ./config.cfg && \
     apk --no-cache add ca-certificates && update-ca-certificates
 
+USER 1994
+
 VOLUME ["/etc/acme-dns", "/var/lib/acme-dns"]
-ENTRYPOINT ["./acme-dns"]
+ENTRYPOINT ["/usr/local/bin/acme-dns"]
 EXPOSE 53 80 443
 EXPOSE 53/udp
