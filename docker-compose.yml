@@ -4,6 +4,7 @@ services:
     build:
       context: .
     container_name: acme-dns
+    restart: unless-stopped
     ports:
       - "${EXTERNAL_IP_API}:443:443"
       - "${EXTERNAL_IP_DNS}:53:53"
