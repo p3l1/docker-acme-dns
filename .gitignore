@@ -1,5 +1,6 @@
 config.cfg
-.token
-.acme.env
 .env
+.env.development
 api-certs/
+data/postgresql/data
+.DS_Store

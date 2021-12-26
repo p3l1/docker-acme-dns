@@ -5,10 +5,23 @@ services:
       context: .
     container_name: acme-dns
     ports:
-      - "10.8.0.1:443:443"
-      - "217.160.41.191:53:53"
-      - "217.160.41.191:53:53/udp"
-      - "10.8.0.1:80:80"
+      - "${EXTERNAL_IP_API}:443:443"
+      - "${EXTERNAL_IP_DNS}:53:53"
+      - "${EXTERNAL_IP_DNS}:53:53/udp"
+      - "${EXTERNAL_IP_API}:80:80"
     volumes:
-      - ./data:/var/lib/acme-dns
-
+      - ./data/acme-dns/api-certs/:/var/lib/acme-dns/api-certs
+    restart: always
+    depends_on:
+      - database
+  database:
+    container_name: database
+    hostname: database
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - ./data/postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}

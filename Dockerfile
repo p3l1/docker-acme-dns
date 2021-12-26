@@ -9,11 +9,12 @@ WORKDIR /tmp/acme-dns
 RUN CGO_ENABLED=1 go build
 
 FROM alpine:latest
-WORKDIR /var/lib/acme-dns/
+WORKDIR /root/
 
 RUN apk --no-cache add \
         ca-certificates \
         bind-tools \
+        gettext \
         libcap && \
         update-ca-certificates && \
         rm -rf /var/cache/apk/*
@@ -30,14 +31,16 @@ RUN addgroup --system --gid 1994 acme && \
             --ingroup acme \
             --shell /sbin/nologin \
             --home /var/lib/acme-dns/ \
-            acme
+            acme && \
+    mkdir -p /var/lib/acme-dns && \
+    chown -R acme:acme /var/lib/acme-dns
 
-USER 1994
+USER acme
+WORKDIR /etc/acme-dns
 
-RUN mkdir -p /var/lib/acme-dns && \
-    rm -rf ./config.cfg
+COPY --chown=acme:acme data/acme-dns/config/config.cfg .
 
-VOLUME ["/var/lib/acme-dns"]
+VOLUME ["/etc/acme-dns"]
 ENTRYPOINT ["/usr/local/bin/acme-dns"]
 EXPOSE 53 80 443
 EXPOSE 53/udp

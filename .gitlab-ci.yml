@@ -4,17 +4,16 @@ before_script:
 build_image:
   stage: build
   script:
+    - docker compose -f docker-compose.yml config
     - docker build -t acme-dns .
 
 deploy_production:
   stage: deploy
   script:
-    - docker-compose down --remove-orphans
+    - docker-compose down
     - docker-compose rm acme-dns
-    - cp .env.example .acme.env
-    - source .acme.env
-    - envsubst < config/template.cfg  > data/config.cfg
-    - docker-compose up -d --build --remove-orphans
+    - envsubst < data/acme-dns/config/template.cfg  > data/acme-dns/config/config.cfg
+    - docker-compose up -d --build --remove-orphans --no-cache
   environment:
     name: production
     url: https://dns.herzo.gs
