@@ -9,6 +9,9 @@ build_image:
 deploy_production:
   stage: deploy
   script:
+    - cp .env.example .acme.env
+    - source .acme.env
+    - envsubst < config/template.cfg  > config/config.cfg
     - docker-compose up -d --build --remove-orphans
   environment:
     name: production
