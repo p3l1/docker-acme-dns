@@ -11,11 +11,12 @@ RUN CGO_ENABLED=1 go build
 FROM alpine:latest
 WORKDIR /var/lib/acme-dns/
 
-RUN adduser --system \
+RUN addgroup --system --gid 1994 acme && \
+    adduser --system \
             --gecos "acme-dns service" \
             --disabled-password \
             --uid 1994 \
-            --group \
+            --ingroup acme \
             --shell /sbin/nologin \
             --home /var/lib/acme-dns/ \
             acme
