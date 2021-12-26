@@ -1,0 +1,14 @@
+version: '2'
+services:
+  acme-dns:
+    build:
+      context: .
+    container_name: acme-dns
+    ports:
+      - "10.8.0.1:443:443"
+      - "217.160.41.191:53:53"
+      - "217.160.41.191:53:53/udp"
+      - "10.8.0.1:80:80"
+    volumes:
+      - ./config/config.cfg:/etc/acme-dns/config.cfg:ro
+      - ./api-certs/:/root/api-certs

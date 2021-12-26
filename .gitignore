@@ -1,0 +1,5 @@
+config.cfg
+.token
+.acme.env
+.env
+api-certs/
