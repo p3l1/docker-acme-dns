@@ -16,7 +16,7 @@ RUN mkdir -p /etc/acme-dns && \
     rm -rf ./config.cfg && \
     apk --no-cache add \
         ca-certificates \
-        dig \
+        bind-tools \
         libcap && \
         update-ca-certificates && \
         rm -rf /var/cache/apk/*
