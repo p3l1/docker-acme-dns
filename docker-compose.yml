@@ -11,7 +11,6 @@ services:
       - "${EXTERNAL_IP_API}:80:80"
     volumes:
       - ./data/acme-dns/api-certs/:/var/lib/acme-dns/api-certs
-    restart: always
     depends_on:
       - database
   database:
