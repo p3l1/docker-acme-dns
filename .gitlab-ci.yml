@@ -5,8 +5,11 @@ build_image:
   stage: build
   script:
     - env
-    - envsubst < data/acme-dns/config/template.cfg  > data/acme-dns/config/config.cfg
+    - envsubst < data/acme-dns/config/template.cfg > data/acme-dns/config/config.cfg
     - docker build -t acme-dns .
+  environment:
+    name: production
+    url: https://dns.herzo.gs
 
 deploy_production:
   stage: deploy
