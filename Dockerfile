@@ -29,6 +29,7 @@ WORKDIR /root/
 RUN apk --no-cache add \
         ca-certificates \
         gettext \
+        libc6-compat \
         libcap \
         curl && \
     update-ca-certificates
