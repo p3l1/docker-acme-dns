@@ -30,7 +30,7 @@ docker-build:
 deploy_production:
   stage: deploy
   script:
-    - docker login -u git -p $REGISTRY_TOKEN https://git.knopp.it:5050
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker-compose pull
     - docker-compose up -d --remove-orphans
   environment:
