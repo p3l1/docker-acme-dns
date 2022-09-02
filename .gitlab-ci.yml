@@ -30,12 +30,24 @@ docker-build:
 deploy_production:
   stage: deploy
   script:
-    - docker login -u git -p $REGISTRY_TOKEN
+    - docker login -u git -p $REGISTRY_TOKEN https://git.knopp.it:5050
     - docker-compose pull
     - docker-compose up -d --remove-orphans
   environment:
     name: production
     url: https://dns.herzo.gs
+    on_stop: stop_production
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: manual
+
+    
+
+stop_production:
+  stage: deploy
+  script:
+    - docker-compose down --remove-orphans
+  environment:
+    name: production
+    action: stop
+  when: manual
