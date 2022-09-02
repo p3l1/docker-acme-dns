@@ -20,7 +20,7 @@ services:
     image: postgres:alpine
     restart: always
     volumes:
-      - ./postgresql/data:/var/lib/postgresql/data
+      - postgresql_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -28,3 +28,4 @@ services:
 
 volumes:
   api-certs:
+  postgresql_data:
