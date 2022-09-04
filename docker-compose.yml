@@ -20,6 +20,7 @@ services:
       DB_ENGINE: ${DB_ENGINE}
       ACME_SERVICE: ${ACME_SERVICE}
       NOTIFICATION_MAIL: ${NOTIFICATION_MAIL}
+      EXTERNAL_IP_DNS: ${EXTERNAL_IP_DNS}
     volumes:
       - api-certs:/var/lib/acme-dns/api-certs:rw
     depends_on:
