@@ -4,7 +4,7 @@
 echo "Database type: $DB_ENGINE"
 
 if [ "$DB_ENGINE" == "postgres" ]; then
-    DB_CONN_STR=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@database/$POSTGRES_DB
+    DB_CONN_STR=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@database/$POSTGRES_DB?sslmode=disable
 elif [ "$DB_ENGINE" == "sqlite3" ]; then
     DB_CONN_STR=/var/lib/acme-dns/database.sqlite3
 else

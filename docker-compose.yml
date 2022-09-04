@@ -10,6 +10,16 @@ services:
       - "${EXTERNAL_IP_API}:443:443"
       - "${EXTERNAL_IP_DNS}:53:53"
       - "${EXTERNAL_IP_DNS}:53:53/udp"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      DNS_ZONE: ${DNS_ZONE}
+      DNS_ZONE_SERVER: ${DNS_ZONE_SERVER}
+      NS_ADMIN_MAIL: ${NS_ADMIN_MAIL}
+      DB_ENGINE: ${DB_ENGINE}
+      ACME_SERVICE: ${ACME_SERVICE}
+      NOTIFICATION_MAIL: ${NOTIFICATION_MAIL}
     volumes:
       - api-certs:/var/lib/acme-dns/api-certs:rw
     depends_on:

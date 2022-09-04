@@ -3,3 +3,4 @@
 acme-dns/api-certs/
 postgresql/data
 .DS_Store
+docker-compose.local.yml
