@@ -4,7 +4,7 @@ LABEL maintainer="joona@kuori.org"
 RUN apk add --update gcc musl-dev git
 
 ENV GOPATH /tmp/buildcache
-RUN git clone https://github.com/joohoi/acme-dns /tmp/acme-dns
+RUN git clone --depth 1 --branch v0.8 https://github.com/joohoi/acme-dns /tmp/acme-dns
 WORKDIR /tmp/acme-dns
 RUN CGO_ENABLED=1 go build
 
@@ -37,7 +37,7 @@ COPY --from=builder /tmp/acme-dns/acme-dns /usr/local/bin/acme-dns
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/acme-dns && \
     chmod +x /usr/local/bin/acme-dns
 
-RUN mkdir -p /var/lib/acme-dns && \
+RUN mkdir -p /var/lib/acme-dns/api-certs && \
     mkdir -p /etc/acme-dns && \
     addgroup --system --gid 1994 acme && \
     adduser --system \
@@ -50,7 +50,6 @@ RUN mkdir -p /var/lib/acme-dns && \
             acme && \
     chown -R acme:acme /var/lib/acme-dns && \
     chown -R acme:acme /etc/acme-dns
-
 
 WORKDIR /etc/acme-dns
 COPY --chown=acme:acme acme-dns/config/template.cfg ./
