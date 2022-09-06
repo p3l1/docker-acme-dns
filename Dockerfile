@@ -63,7 +63,7 @@ ENTRYPOINT ["sh", "-c", "/var/lib/acme-dns/docker-entrypoint.sh"]
 
 STOPSIGNAL SIGKILL
 HEALTHCHECK --interval=5s --timeout=3s --start-period=10s \
-    CMD curl -f http://localhost/health || exit 1
+    CMD curl -f https://localhost/health || exit 1
 
 VOLUME ["/etc/acme-dns", "/var/lib/acme-dns/"]
 EXPOSE 53 80 443
