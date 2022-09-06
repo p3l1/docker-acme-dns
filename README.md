@@ -7,3 +7,9 @@
 ## Original project
 
 See [acme-dns](https://github.com/joohoi/acme-dns).
+
+## License
+
+[MIT](LICENSE)
+
+Copyright (c) 2022 Joona Hoikkala
