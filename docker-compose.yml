@@ -2,7 +2,10 @@
 version: '2'
 services:
   acme-dns:
-    image: git.knopp.it:5050/p.herzog/docker-acme-dns:latest
+    image: docker-acme-dns:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: acme-dns
     restart: unless-stopped
     ports:

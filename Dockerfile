@@ -1,5 +1,5 @@
 FROM golang:alpine AS builder
-LABEL maintainer="joona@kuori.org"
+LABEL maintainer="philipp@herzo.gs"
 
 RUN apk add --update gcc musl-dev git
 
@@ -9,6 +9,7 @@ WORKDIR /tmp/acme-dns
 RUN CGO_ENABLED=1 go build
 
 FROM alpine:latest
+LABEL maintainer="philipp@herzo.gs"
 
 ENV PG_HOST=host.docker.internal
 ENV PG_DATABASE=acme
